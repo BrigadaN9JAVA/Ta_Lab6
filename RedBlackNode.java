@@ -44,4 +44,8 @@ public class RedBlackNode {
     public void setData(int data) {
         this.data = data;
     }
+
+    public void printNode(){
+        System.out.println("> Node has value: " + data);
+    }
 }

@@ -2,6 +2,10 @@ public class RedBlackTree {
     private RedBlackNode root;
     private RedBlackNode TNULL;
 
+    public RedBlackNode getRoot() {
+        return root;
+    }
+
     public RedBlackTree(){
         TNULL = new RedBlackNode();
         TNULL.setColor(0);
@@ -10,7 +14,11 @@ public class RedBlackTree {
         root = TNULL;
     }
 
-    public void insert(int key){
+    public long insert(int key){
+        long end;
+        long start = System.nanoTime();
+
+
         RedBlackNode newNode = new RedBlackNode();
         newNode.setParent(null);
         newNode.setData(key);
@@ -44,14 +52,17 @@ public class RedBlackTree {
 
         if(newNode.getParent() == null){
             newNode.setColor(0);
-            return;
+            end = System.nanoTime();
+            return end-start;
         }
 
         if(newNode.getParent().getParent() == null){
-            return;
+            end = System.nanoTime();
+            return end-start;
         }
-
+        end = System.nanoTime();
         fixInsert(newNode);
+        return end-start;
     }
 
     private void fixInsert(RedBlackNode k){
@@ -154,11 +165,14 @@ public class RedBlackTree {
         return findHelper(node.getRight(), key);
     }
 
-    public void deleteNode(int key){
-        deleteNodeHelper(this.root, key);
+    public long deleteNode(int key){
+        return deleteNodeHelper(this.root, key);
     }
 
-    private void deleteNodeHelper(RedBlackNode node, int key){
+    private long deleteNodeHelper(RedBlackNode node, int key){
+        long end;
+        long start = System.nanoTime();
+
         RedBlackNode z = TNULL;
         RedBlackNode x, y;
         while(node != TNULL){
@@ -175,7 +189,7 @@ public class RedBlackTree {
 
         if(z == TNULL){
             System.out.println("Couldn't find key in the tree");
-            return;
+            return 0;
         }
 
         y = z;
@@ -206,9 +220,11 @@ public class RedBlackTree {
             y.getLeft().setParent(y);
             y.setColor(z.getColor());
         }
+        end = System.nanoTime();
         if(yOriginalColor == 0){
             fixDelete(x);
         }
+        return end - start;
     }
 
     private void rbTransplant(RedBlackNode u, RedBlackNode v){

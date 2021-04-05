@@ -53,6 +53,10 @@ public class BinaryTree {
         return currentNode;
     }
 
+    public Node getRootNode() {
+        return rootNode;
+    }
+
     public boolean remove(int value){
         // Checking node for existing
         Node currentNode = rootNode;
